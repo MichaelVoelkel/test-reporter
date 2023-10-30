@@ -6,6 +6,8 @@ export async function listFiles(): Promise<string[]> {
   let output = ''
   try {
     output = (await getExecOutput('git', ['ls-files', '-z'])).stdout
+  } catch (error) {
+    core.warning(`Could not get tracked files, working with empty file list: ${error}`)
   } finally {
     fixStdOutNullTermination()
     core.endGroup()

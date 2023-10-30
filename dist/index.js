@@ -1906,6 +1906,9 @@ function listFiles() {
         try {
             output = (yield (0, exec_1.getExecOutput)('git', ['ls-files', '-z'])).stdout;
         }
+        catch (error) {
+            core.warning(`Could not get tracked files, working with empty file list: ${error}`);
+        }
         finally {
             fixStdOutNullTermination();
             core.endGroup();
